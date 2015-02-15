@@ -1,27 +1,23 @@
 express = require "express"
-htmlData = require "fixtures/html"
 serveStatic = require "serve-static"
 mongoose = require "mongoose"
 bodyParser = require "body-parser"
 cors = require "express-cors"
 
 app = express()
-connectionString = "mongodb://localhost:27017/fp"
+connectionString = "mongodb://pereter:0032380as@ds043981.mongolab.com:43981/boostloger"
 mongoose.connect connectionString
 
-DataSchema = new mongoose.Schema
-    a: Number
-    b: Number
-    value: Number
+ClickSchema = new mongoose.Schema
+    elementName: String
+    userAction: String
+    updated: { type: Date, default: Date.now }
+    widget: String
 
-PointSchema = new mongoose.Schema
-    type: String
-    data: [DataSchema]
+Click = mongoose.model "Click", ClickSchema
 
-Point = mongoose.model "Point", PointSchema
-
-app.use bodyParser.json()
 app.use bodyParser.urlencoded extended: true
+app.use bodyParser.json()
 
 app.use cors
     allowedOrigins: [
@@ -32,7 +28,7 @@ app.use serveStatic "./dist"
 
 app.get "/get", (req, res) ->
     console.log "GET"
-    Point.find {}, (err, result) ->
+    Click.find {}, (err, result) ->
         res.json {
             result
             code: 200
@@ -41,12 +37,13 @@ app.get "/get", (req, res) ->
 
 app.post "/save", (req, res, next) ->
     data = req.body
-    p = new Point data
-    console.log p
-    p.save (err) ->
+    console.log req.body
+    c = new Click data
+    console.log c
+    c.save (err) ->
         res.json
             code: 200
             status: "OK"
-            id: p.id
+            id: c.id
 
 app.listen 3000
