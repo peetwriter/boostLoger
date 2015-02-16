@@ -31,9 +31,5 @@
     "jshint-stylish": "^1.0.0",
     "gulp-coffee": "^2.2.0",
     "gulp-util": "^3.0.1"
-  },
-  "scripts": {
-    "start": "node app",
-    "postinstall": "node node_modules/.bin/gulp server"
-  } 
+  }
 }
