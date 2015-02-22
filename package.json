@@ -16,6 +16,9 @@
     "url": "https://github.com/sabov/footprint/issues"
   },
   "homepage": "https://github.com/sabov/footprint",
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "dependencies": {
     "amdefine": "^0.1.0",
     "body-parser": "^1.10.1",
@@ -35,8 +38,5 @@
     "jshint-stylish": "^1.0.0",
     "gulp-coffee": "^2.2.0",
     "gulp-util": "^3.0.1"
-  },
-  "scripts": {
-    "postinstall": "bower install"
   }
 }

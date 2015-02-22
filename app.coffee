@@ -25,7 +25,7 @@ app.use cors
         "fp.dev:*"
     ]
 
-app.use serveStatic "./dist"
+app.use express.static(__dirname + '/dist')
 app.use express.static(__dirname + '/public')
 
 app.set "views", path.join(__dirname, "views")
