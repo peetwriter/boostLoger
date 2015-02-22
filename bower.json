@@ -1,9 +1,9 @@
 {
   "name": "footprint",
   "version": "0.1",
-  "homepage": "https://github.com/sabov/footprint",
+  "homepage": "https://github.com/peetwriter/footprint",
   "authors": [
-    "Oleksandr Sabov <alexsabov@gmail.com>"
+    "Petr Tarasenko"
   ],
   "license": "MIT",
   "ignore": [
@@ -15,8 +15,6 @@
   ],
   "dependencies": {
     "jquery": "~2.1.1",
-    "heatmap.js.bower": "v2.0",
-    "lodash": "~2.4.1",
-    "annotator": "~1.2.9"
+    "lodash": "~2.4.1"
   }
 }

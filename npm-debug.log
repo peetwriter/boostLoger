@@ -1,0 +1,36 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'acorn/util/walk' ]
+2 info using npm@2.0.0
+3 info using node@v0.11.14
+4 warn package.json express-cors@0.0.3 No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'acorn/util/walk', null ]
+7 verbose cache add spec="acorn/util/walk" args=["acorn/util/walk",null]
+8 verbose parsed spec { raw: 'acorn/util/walk',
+8 verbose parsed spec   scope: null,
+8 verbose parsed spec   name: null,
+8 verbose parsed spec   rawSpec: 'acorn/util/walk',
+8 verbose parsed spec   spec: '/Users/petr/work/footprint/acorn/util/walk',
+8 verbose parsed spec   type: 'local' }
+9 verbose parsed spec { raw: '/Users/petr/work/footprint/acorn/util/walk',
+9 verbose parsed spec   scope: null,
+9 verbose parsed spec   name: null,
+9 verbose parsed spec   rawSpec: '/Users/petr/work/footprint/acorn/util/walk',
+9 verbose parsed spec   spec: '/Users/petr/work/footprint/acorn/util/walk',
+9 verbose parsed spec   type: 'local' }
+10 verbose stack Error: couldn't figure out how to install /Users/petr/work/footprint/acorn/util/walk
+10 verbose stack     at addNonLocal (/usr/local/lib/node_modules/npm/lib/cache.js:309:12)
+10 verbose stack     at /usr/local/lib/node_modules/npm/lib/cache.js:278:20
+10 verbose stack     at Object.oncomplete (evalmachine.<anonymous>:93:15)
+11 verbose cwd /Users/petr/work/footprint
+12 error Darwin 14.1.0
+13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "acorn/util/walk"
+14 error node v0.11.14
+15 error npm  v2.0.0
+16 error couldn't figure out how to install /Users/petr/work/footprint/acorn/util/walk
+17 error If you need help, you may report this error at:
+17 error     <http://github.com/npm/npm/issues>
+18 verbose exit [ 1, true ]
