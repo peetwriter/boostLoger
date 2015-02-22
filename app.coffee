@@ -26,12 +26,14 @@ app.use cors
     ]
 
 app.use serveStatic "./dist"
+app.use express.static(__dirname + '/public')
 
 app.set "views", path.join(__dirname, "views")
 app.set "view engine", "jade"
 
 app.get "/", (req, res) ->
-    res.render "index", {}
+    Click.find {}, (err, clicks) ->
+        res.render "index", {clicks}
 
 app.get "/get", (req, res) ->
     Click.find {}, (err, result) ->
@@ -43,9 +45,7 @@ app.get "/get", (req, res) ->
 
 app.post "/save", (req, res, next) ->
     data = req.body
-    console.log req.body
     c = new Click data
-    console.log c
     c.save (err) ->
         res.json
             code: 200

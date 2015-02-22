@@ -3,10 +3,16 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     title
-    script(src='/bower_components/jquery/dist/jquery.js')
-    script(src='/bower_components/lodash/dist/lodash.js')
-    script(src='http://localhost:3000/footprint.js')
+    link(href='libs/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     style.
   body
-    .content
-      p It works
+    .container
+        h1.text-center User Clicks
+        br
+        table.table.table-striped
+            each click in clicks 
+                tr
+                  td= click.elementName
+                  td= click.userAction
+                  td= click.updated
+                  td= click.widget
