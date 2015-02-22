@@ -1,7 +1,6 @@
 $ ->
   $postButtom = $('.postButton')
   onAjaxSuccess = (data) ->
-    alert data
     return
 
   postAjax = -> 
