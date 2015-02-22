@@ -1,9 +1,7 @@
 $(function() {
   var $postButtom, onAjaxSuccess, postAjax;
   $postButtom = $('.postButton');
-  onAjaxSuccess = function(data) {
-    alert(data);
-  };
+  onAjaxSuccess = function(data) {};
   postAjax = function() {
     return $.post('/save', {
       elementName: "oen",
