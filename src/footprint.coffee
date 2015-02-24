@@ -8,6 +8,7 @@ $ ->
         elementName: "oen"
         userAction: "two"
         widget: "three"
+        role: "Employee"
       }, onAjaxSuccess
 
   $postButtom.click -> postAjax()

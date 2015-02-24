@@ -13,10 +13,17 @@ html(lang='en')
         h1.text-center User Clicks
         br
         table.table.table-striped
+            tr
+              td= Element Name
+              td= User Action
+              td= Updated
+              td= Widget
+              td= Role
             each click in clicks 
                 tr
                   td= click.elementName
                   td= click.userAction
                   td= click.updated
                   td= click.widget
+                  td= click.role
         input.postButton.btn.btn-primary(type='button', value='Trial Post')
