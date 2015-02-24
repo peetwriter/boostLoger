@@ -6,7 +6,8 @@ $(function() {
     return $.post('/save', {
       elementName: "oen",
       userAction: "two",
-      widget: "three"
+      widget: "three",
+      role: "Employee"
     }, onAjaxSuccess);
   };
   return $postButtom.click(function() {
