@@ -23,7 +23,7 @@ app.use bodyParser.json()
 
 app.use cors
     allowedOrigins: [
-        "fp.dev:*"
+        "*"
     ]
 
 app.use express.static(__dirname + '/dist')
