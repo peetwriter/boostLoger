@@ -15,6 +15,7 @@ ClickSchema = new mongoose.Schema
     updated: { type: Date, default: Date.now }
     widget: String
     role: String
+    uri: String
 
 Click = mongoose.model "Click", ClickSchema
 

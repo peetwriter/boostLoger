@@ -19,6 +19,7 @@ html(lang='en')
               td Updated
               td Widget
               td Role
+              td Uri
             each click in clicks 
                 tr
                   td= click.elementName
@@ -26,4 +27,5 @@ html(lang='en')
                   td= click.updated
                   td= click.widget
                   td= click.role
+                  td= click.uri
         input.postButton.btn.btn-primary(type='button', value='Trial Post')
