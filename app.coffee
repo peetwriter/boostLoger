@@ -15,7 +15,8 @@ ClickSchema = new mongoose.Schema
     updated: { type: Date, default: Date.now }
     widget: String
     role: String
-    uri: String
+    userUri: String
+    roleUri: String
 
 Click = mongoose.model "Click", ClickSchema
 
@@ -38,7 +39,7 @@ app.get "/", (req, res) ->
         res.render "index", {clicks}
 
 app.get "/get", (req, res) ->
-    Click.find {}, (err, result) ->
+    Click.find { }, (err, result) ->
         res.json {
             result
             code: 200
@@ -47,6 +48,7 @@ app.get "/get", (req, res) ->
 
 app.post "/save", (req, res, next) ->
     data = req.body
+    console.log req.body
     c = new Click data
     c.save (err) ->
         res.json

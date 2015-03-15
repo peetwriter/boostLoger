@@ -25,7 +25,9 @@ html(lang='en')
               td 
                 strong Role
               td 
-                strong Uri
+                strong User Uri
+              td 
+                strong Role Uri
             each click in clicks 
                 tr
                   td= click.elementName
@@ -33,5 +35,6 @@ html(lang='en')
                   td= click.updated
                   td= click.widget
                   td= click.role
-                  td= click.uri
+                  td= click.userUri
+                  td= click.roleUri
         //- input.postButton.btn.btn-primary(type='button', value='Trial Post')
