@@ -38,6 +38,12 @@ app.get "/", (req, res) ->
     Click.find {}, (err, clicks) ->
         res.render "index", {clicks}
 
+app.get "/widget/:widgetName", (req, res) ->
+    widgetName = req.params.widgetName
+    console.log widgetName
+    Click.find { widget: widgetName }, (err, clicks) ->
+        res.render "widgets", {clicks, widgetName}
+
 app.get "/get", (req, res) ->
     Click.find { }, (err, result) ->
         res.json {
@@ -48,7 +54,6 @@ app.get "/get", (req, res) ->
 
 app.post "/save", (req, res, next) ->
     data = req.body
-    console.log req.body
     c = new Click data
     c.save (err) ->
         res.json

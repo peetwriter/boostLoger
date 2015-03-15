@@ -11,7 +11,7 @@ html(lang='en')
     style.
   body
     .container
-        h1.text-center User Clicks
+        h1.text-center User Clicks for #{widgetName} widget
         br
 
         .dropdown
@@ -24,9 +24,9 @@ html(lang='en')
               a(role='menuitem', tabindex='-1', href='/widget/Access') Access
               a(role='menuitem', tabindex='-1', href='/widget/Employee') Employee
               a(role='menuitem', tabindex='-1', href='/widget/BCN') BCN
-            
-        br
 
+        br 
+        
         table.table.table-striped
             tr
               td 
@@ -35,8 +35,6 @@ html(lang='en')
                 strong User Action
               td
                 strong Updated
-              td 
-                strong Widget
               td 
                 strong Role
               td 
@@ -48,8 +46,6 @@ html(lang='en')
                   td= click.elementName
                   td= click.userAction
                   td= click.updated
-                  td= click.widget
                   td= click.role
                   td= click.userUri
                   td= click.roleUri
-        //- input.postButton.btn.btn-primary(type='button', value='Trial Post')
