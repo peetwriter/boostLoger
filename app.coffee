@@ -26,13 +26,22 @@ app.use bodyParser.json()
 app.use cors
     allowedOrigins: [
         "role-sandbox.eu"
+        "http://127.0.0.1:8073"
     ]
 
 app.use express.static(__dirname + '/dist')
 app.use express.static(__dirname + '/public')
 
+
+
 app.set "views", path.join(__dirname, "views")
 app.set "view engine", "jade"
+
+
+app.use (req, res, next) ->
+  res.header 'Access-Control-Allow-Origin', '*'
+  res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
+  next()
 
 app.get "/", (req, res) ->
     Click.find {}, (err, clicks) ->
