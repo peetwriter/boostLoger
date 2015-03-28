@@ -4,10 +4,12 @@ mongoose = require "mongoose"
 bodyParser = require "body-parser"
 cors = require "express-cors"
 path = require "path"
+jf = require "jsonfile"
 
 app = express()
 connectionString = "mongodb://pereter:0032380as@ds043981.mongolab.com:43981/boostloger"
 mongoose.connect connectionString
+clickFile = "#{__dirname}/db/clicks.json"
 
 ClickSchema = new mongoose.Schema
     elementName: String
@@ -44,6 +46,9 @@ app.use (req, res, next) ->
   next()
 
 app.get "/", (req, res) ->
+    obj = {name: "loh2"}
+    jf.appendFile clickFile, obj, (err) ->
+      console.log err
     Click.find {}, (err, clicks) ->
         res.render "index", {clicks}
 
@@ -69,5 +74,9 @@ app.post "/save", (req, res, next) ->
             code: 200
             status: "OK"
             id: c.id
+
+    obj = {name: "loh"}
+    jf.writeFile clickFile, obj, (err) ->
+      console.log err
 
 app.listen(process.env.PORT || 5000)
