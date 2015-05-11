@@ -1,24 +1,29 @@
 express = require "express"
 serveStatic = require "serve-static"
-mongoose = require "mongoose"
 bodyParser = require "body-parser"
 cors = require "express-cors"
 path = require "path"
+Sequelize = require "sequelize"
+
 
 app = express()
-connectionString = "mongodb://pereter:0032380as@ds043981.mongolab.com:43981/boostloger"
-mongoose.connect connectionString
+sequelize = new Sequelize('database', 'username', 'password',
+    dialect: 'sqlite'
+    pool:
+        max: 5
+        min: 0
+        idle: 10000
+    storage: __dirname + '/logs.SQLite')
 
-ClickSchema = new mongoose.Schema
-    elementName: String
-    userAction: String
-    updated: { type: Date, default: Date.now }
-    widget: String
-    role: String
-    userUri: String
-    roleUri: String
+Click = sequelize.define('log',
+    elementName: Sequelize.STRING
+    userAction: Sequelize.STRING
+    widget: Sequelize.STRING
+    role: Sequelize.STRING
+    userUri: Sequelize.STRING
+    roleUri: Sequelize.STRING)
 
-Click = mongoose.model "Click", ClickSchema
+sequelize.sync()
 
 app.use bodyParser.urlencoded extended: true
 app.use bodyParser.json()
@@ -44,30 +49,25 @@ app.use (req, res, next) ->
   next()
 
 app.get "/", (req, res) ->
-    Click.find {}, (err, clicks) ->
+    Click.findAll().then (clicks) ->
         res.render "index", {clicks}
 
 app.get "/widget/:widgetName", (req, res) ->
     widgetName = req.params.widgetName
-    console.log widgetName
-    Click.find { widget: widgetName }, (err, clicks) ->
+    Click.findAll(where: widget: widgetName).then (clicks) ->
         res.render "widgets", {clicks, widgetName}
+        return
 
 app.get "/get", (req, res) ->
-    Click.find { }, (err, result) ->
-        res.json {
-            result
-            code: 200
-            status: "OK"
-        }
+    Click.findAll().then (clicks) ->
+        res.render "index", {clicks}
 
 app.post "/save", (req, res, next) ->
     data = req.body
-    c = new Click data
-    c.save (err) ->
-        res.json
-            code: 200
-            status: "OK"
-            id: c.id
+    rec = Click.build data
+    rec.save().error((err) ->
+        console.log err
+        return
+    )
 
 app.listen(process.env.PORT || 5000)
