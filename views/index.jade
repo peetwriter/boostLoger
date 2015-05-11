@@ -3,8 +3,8 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     title
-    script(src='/libs/jquery/dist/jquery.js')    
-    script(src='/libs/bootstrap/dist/js/bootstrap.js')    
+    script(src='/libs/jquery/dist/jquery.js')
+    script(src='/libs/bootstrap/dist/js/bootstrap.js')
     link(href='/libs/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     script(src='/footprint.js')
 
@@ -27,30 +27,30 @@ html(lang='en')
               a(role='menuitem', tabindex='-1', href='/widget/Resources') Resources
               a(role='menuitem', tabindex='-1', href='/widget/Graph') Graph
               a(role='menuitem', tabindex='-1', href='/widget/Search') Search
-            
+
         br
 
         table.table.table-striped
             tr
-              td 
+              td
                 strong Element Name
-              td 
+              td
                 strong User Action
               td
-                strong Updated
-              td 
+                strong Created
+              td
                 strong Widget
-              td 
+              td
                 strong Role
-              td 
+              td
                 strong User Uri
-              td 
+              td
                 strong Role Uri
-            each click in clicks 
+            each click in clicks
                 tr
                   td= click.elementName
                   td= click.userAction
-                  td= click.updated
+                  td= click.createdAt
                   td= click.widget
                   td= click.role
                   td= click.userUri
