@@ -3,6 +3,9 @@ jshint = require "gulp-jshint"
 nodemon = require "gulp-nodemon"
 coffee = require "gulp-coffee"
 gutil = require "gulp-util"
+less = require "gulp-less"
+livereload = require "gulp-livereload"
+watch = require "gulp-watch"
 
 gulp.task "lint", ->
     gulp.src "."
@@ -15,8 +18,16 @@ gulp.task "coffee", ->
         .on "error", gutil.log
         .pipe gulp.dest "./dist/"
 
+gulp.task "less", ->
+    gulp.src "./less/*.less"
+        .pipe less()
+        .pipe gulp.dest "./dist/css/"
+        .pipe livereload()
+        .on "error", gutil.log
+
 gulp.task "watch", ->
     gulp.watch "./src/*.coffee", ["coffee"]
+    gulp.watch "./less/*.less", ["less"]
 
 gulp.task "server", ->
     nodemon

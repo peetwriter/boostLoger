@@ -3,7 +3,7 @@ $ ->
   onAjaxSuccess = (data) ->
     return
 
-  postAjax = -> 
+  postAjax = ->
     $.post '/save', {
         elementName: "oen"
         userAction: "two"
@@ -11,4 +11,6 @@ $ ->
         role: "Employee"
       }, onAjaxSuccess
 
-  $postButtom.click -> postAjax()
+myFunction = (userUri, roleUri)->
+  $.get "/api/#{userUri}/#{roleUri}", (data) ->
+    console.log data

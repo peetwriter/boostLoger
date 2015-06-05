@@ -1,58 +1,47 @@
-doctype html
-html(lang='en')
-  head
-    meta(charset='UTF-8')
-    title
-    script(src='/libs/jquery/dist/jquery.js')
-    script(src='/libs/bootstrap/dist/js/bootstrap.js')
-    link(href='/libs/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
-    script(src='/footprint.js')
+extends layout
+block content
+  .container
+      h1.text-center User Clicks
+      br
+      .dropdown
+        button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
+          | Widgets
+          span.caret
+        ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+          li(role='presentation')
+            a(role='menuitem', tabindex='-1', href='/widget/Welcome') Welcome
+            a(role='menuitem', tabindex='-1', href='/widget/Access') Access
+            a(role='menuitem', tabindex='-1', href='/widget/Employee') Employee
+            a(role='menuitem', tabindex='-1', href='/widget/BCN') BCN
+            a(role='menuitem', tabindex='-1', href='/widget/Resources') Resources
+            a(role='menuitem', tabindex='-1', href='/widget/Graph') Graph
+            a(role='menuitem', tabindex='-1', href='/widget/Search') Search
 
-    style.
-  body
+      br
 
-    .container
-        h1.text-center User Clicks
-        br
-        .dropdown
-          button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
-            | Widgets
-            span.caret
-          ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
-            li(role='presentation')
-              a(role='menuitem', tabindex='-1', href='/widget/Welcome') Welcome
-              a(role='menuitem', tabindex='-1', href='/widget/Access') Access
-              a(role='menuitem', tabindex='-1', href='/widget/Employee') Employee
-              a(role='menuitem', tabindex='-1', href='/widget/BCN') BCN
-              a(role='menuitem', tabindex='-1', href='/widget/Resources') Resources
-              a(role='menuitem', tabindex='-1', href='/widget/Graph') Graph
-              a(role='menuitem', tabindex='-1', href='/widget/Search') Search
-
-        br
-
-        table.table.table-striped
-            tr
-              td
-                strong Element Name
-              td
-                strong User Action
-              td
-                strong Created
-              td
-                strong Widget
-              td
-                strong Role
-              td
-                strong User Uri
-              td
-                strong Role Uri
-            each click in clicks
-                tr
-                  td= click.elementName
-                  td= click.userAction
-                  td= click.createdAt
-                  td= click.widget
-                  td= click.role
-                  td= click.userUri
-                  td= click.roleUri
-        //- input.postButton.btn.btn-primary(type='button', value='Trial Post')
+      table.table.table-striped
+          tr
+            td
+              strong Element Name
+            td
+              strong User Action
+            td
+              strong Created
+            td
+              strong Widget
+            td
+              strong Role
+            td
+              strong User Uri
+            td
+              strong Role Uri
+          each click in clicks
+              tr
+                td= click.elementName
+                td= click.userAction
+                td= click.createdAt
+                td= click.widget
+                td= click.role
+                td= click.userUri
+                td= click.roleUri
+      //- input.postButton.btn.btn-primary(type='button', value='Trial Post')
