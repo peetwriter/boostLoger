@@ -1,23 +1,28 @@
 extends layout
 block content
-  .navmenu.navmenu-default.navmenu-fixed-left.offcanvas-sm
-    ul.nav.navmenu-nav
-      each company in companies
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown')
-            | #{company.roleUri}
-            b.caret
-          ul.dropdown-menu.navmenu-nav
-            each user in company.users
-              li
-                a(href='#' onclick="myFunction('#{user.userUri}','#{company.roleUri}')") #{user.userUri.substring(user.userUri.length - 10, user.userUri.length)}
-  .navbar.navbar-default.navbar-fixed-top.hidden-md.hidden-lg
-    button.navbar-toggle(type='button', data-toggle='offcanvas', data-target='.navmenu')
-      span.icon-bar
-      span.icon-bar
-      span.icon-bar
-    a.navbar-brand(href='#') Project name
-  .container
-    .page-header
-      h1 User statistics
-    canvas(id="myChart" width="700 " height="400")
+  body.page_dashboard
+    .navmenu.navmenu-default.navmenu-fixed-left.offcanvas-sm
+      ul.nav.navmenu-nav
+        each company in companies
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              span.main-item #{company.roleUri}
+              b.caret
+            ul.dropdown-menu.navmenu-nav
+              each user in company.users
+                li
+                  a(onclick="drawAnnotations('#{user.userUri}','#{company.roleUri}')") #{user.userUri.substring(user.userUri.length - 10, user.userUri.length)}
+    .navbar.navbar-default.navbar-fixed-top.hidden-md.hidden-lg
+      button.navbar-toggle(type='button', data-toggle='offcanvas', data-target='.navmenu')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='#') Boost Logger
+    .container
+      .page-header
+        h3 Boost Statistics
+      .row
+        .col-sm-6
+          div#widgetData
+        .col-sm-6
+          div#phaseData

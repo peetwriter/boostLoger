@@ -54,6 +54,16 @@ app.get "/", (req, res) ->
     Click.findAll().then (clicks) ->
         res.render "index", {clicks}
 
+app.get "/clean", (req, res) ->
+    Click.findAll().then (clicks) ->
+        Promise.each clicks, (click) ->
+            if click.roleUri
+                click.updateAttributes
+                    roleUri: click.roleUri.replace "#", ""
+        .then ->
+            res.json "role Uris cleaned"
+
+
 app.get "/api/:user/:company", (req, res) ->
     sequelize.query("Select COUNT(*) AS count, DATE(createdAt) as date
         FROM logs WHERE replace(replace(userUri,char(10),''),char(13),'') = '#{req.params.user}'
@@ -63,10 +73,26 @@ app.get "/api/:user/:company", (req, res) ->
     .then (clicks) ->
         res.json clicks[0]
 
+app.get "/api/phases/:user/:company", (req, res) ->
+    sequelize.query("Select DATE(createdAt) as date, widget
+        FROM logs WHERE replace(replace(userUri,char(10),''),char(13),'') = '#{req.params.user}'
+        AND roleUri = '#{req.params.company}'")
+    .then (clicks) ->
+        newas = []
+        gouped = _ clicks[0]
+            .groupBy (click) -> click.date
+            .value()
+        grouped2 = _.map gouped, (item, key) ->
+            date: key
+            item: _.countBy item, (i) -> i.widget
+        res.json grouped2
+
 app.get "/dashboard", (req, res) ->
     finalCompanies = []
     sequelize.query("Select DISTINCT roleUri FROM logs").then (companies) ->
-        Promise.each companies[0], (company) ->
+        companies = _.filter companies[0], (company) ->
+            not _.isEmpty company.roleUri
+        Promise.each companies, (company) ->
             sequelize.query("Select DISTINCT userUri FROM logs WHERE roleUri = '#{company.roleUri}'").then (users) ->
                 users = _.map users[0], (user) ->
                     userUri: user.userUri.replace(/(\r\n|\n|\r)/gm,"")

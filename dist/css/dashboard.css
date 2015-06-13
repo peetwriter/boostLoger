@@ -5,38 +5,51 @@ body {
 body {
   padding: 50px 0 0 0;
 }
-.navmenu {
+@media (min-width: 992px) {
+  .page_dashboard {
+    padding: 0 0 0 300px;
+  }
+}
+.page_dashboard .navmenu {
+  background-color: #E1E4FF;
   padding-top: 50px;
 }
-.navbar {
+.page_dashboard .navmenu .dropdown-toggle .main-item {
+  color: #353A7F;
+}
+.page_dashboard .navmenu .dropdown-menu {
+  background-color: #BEC2E0;
+}
+.page_dashboard .navmenu .dropdown-menu a {
+  color: #353A7F;
+  cursor: pointer;
+}
+.page_dashboard .navbar {
   display: block;
   text-align: center;
 }
-.navbar-brand {
+.page_dashboard .navbar-brand {
   display: inline-block;
   float: none;
 }
-.navbar-toggle {
+.page_dashboard .navbar-toggle {
   position: absolute;
   float: left;
   margin-left: 15px;
 }
-.container {
+.page_dashboard .container {
   max-width: 100%;
 }
 @media (min-width: 1px) {
-  .navbar-toggle {
+  .page_dashboard .navbar-toggle {
     display: block !important;
   }
 }
 @media (min-width: 992px) {
-  body {
-    padding: 0 0 0 300px;
-  }
-  .navmenu {
+  .page_dashboard .navmenu {
     padding-top: 0;
   }
-  .navbar {
+  .page_dashboard .navbar {
     display: none !important;
     /* IE8 fix */
   }

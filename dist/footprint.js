@@ -1,4 +1,4 @@
-var myFunction;
+var drawGraph, fillEmptyDataWithDayDates;
 
 $(function() {
   var $postButtom, onAjaxSuccess, postAjax;
@@ -14,10 +14,39 @@ $(function() {
   };
 });
 
-myFunction = function(userUri, roleUri) {
+fillEmptyDataWithDayDates = function(data) {
+  var endDate, fullDatesArray;
+  if (_.isEmpty(data)) {
+    return [];
+  }
+  fullDatesArray = [
+    {
+      date: moment(_.first(data).date).format("YYYY-MM-DD"),
+      count: 0
+    }
+  ];
+  endDate = moment().subtract(1, "days");
+  while (moment(_.last(fullDatesArray).date) < endDate) {
+    fullDatesArray.push({
+      date: moment(_.last(fullDatesArray).date).add(1, "days").format("YYYY-MM-DD"),
+      count: 0
+    });
+  }
+  _.each(data, function(item) {
+    var sameItem;
+    if (sameItem = _.findWhere(fullDatesArray, {
+      "date": moment(item.date).format("YYYY-MM-DD")
+    })) {
+      return sameItem.count = item.count;
+    }
+  });
+  return fullDatesArray;
+};
+
+drawGraph = function(userUri, roleUri) {
   return $.get("/api/" + userUri + "/" + roleUri, function(data) {
     var ctx, graphData, labels, myNewChart, options;
-    console.log(data);
+    data = fillEmptyDataWithDayDates(data);
     labels = _.map(data, function(item) {
       return item.date;
     });

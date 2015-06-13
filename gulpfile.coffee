@@ -23,7 +23,7 @@ gulp.task "less", ->
         .pipe less()
         .pipe gulp.dest "./dist/css/"
         .pipe livereload()
-        .on "error", gutil.log
+        # .on "error", gutil.log
 
 gulp.task "watch", ->
     gulp.watch "./src/*.coffee", ["coffee"]

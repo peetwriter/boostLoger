@@ -11,9 +11,25 @@ $ ->
         role: "Employee"
       }, onAjaxSuccess
 
-myFunction = (userUri, roleUri)->
+fillEmptyDataWithDayDates = (data) ->
+  if _.isEmpty data then return []
+  fullDatesArray = [
+      date: moment(_.first(data).date).format "YYYY-MM-DD"
+      count: 0
+  ]
+  endDate = moment().subtract(1, "days")
+  while  moment(_.last(fullDatesArray).date) < endDate
+      fullDatesArray.push
+          date: moment(_.last(fullDatesArray).date).add(1, "days").format "YYYY-MM-DD"
+          count: 0
+  _.each data, (item) ->
+      if sameItem = (_.findWhere fullDatesArray, {"date": moment(item.date).format "YYYY-MM-DD" })
+          sameItem.count = item.count
+  fullDatesArray
+
+drawGraph = (userUri, roleUri)->
   $.get "/api/#{userUri}/#{roleUri}", (data) ->
-    console.log data
+    data = fillEmptyDataWithDayDates data
     labels = _.map data, (item) -> item.date
 
     graphData =
