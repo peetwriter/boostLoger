@@ -73,6 +73,13 @@ app.get "/api/:user/:company", (req, res) ->
     .then (clicks) ->
         res.json clicks[0]
 
+app.get "/api/allClicks/:user/:company", (req, res) ->
+    sequelize.query("Select createdAt, widget, DATE(createdAt) as date
+        FROM logs WHERE replace(replace(userUri,char(10),''),char(13),'') = '#{req.params.user}'
+        AND roleUri = '#{req.params.company}'")
+    .then (clicks) ->
+        res.json clicks[0]
+
 app.get "/api/phases/:user/:company", (req, res) ->
     sequelize.query("Select DATE(createdAt) as date, widget
         FROM logs WHERE replace(replace(userUri,char(10),''),char(13),'') = '#{req.params.user}'
