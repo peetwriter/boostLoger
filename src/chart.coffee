@@ -18,9 +18,8 @@ drawAnnotations = (userUri, roleUri)->
     hourData.addColumn 'number', 'Search'
     finalData = []
     _.each groupedData, (groupedItem, key) ->
-      console.log key
       _.each groupedItem, (item) ->
-        retArray = [moment().toDate(key), 0, 0, 0, 0, 0, 0, 0]
+        retArray = [moment(key).toDate(), 0, 0, 0, 0, 0, 0, 0]
         if item.widget == "Welcome"
           retArray[1] = item.time
         if item.widget == "Access"
@@ -41,16 +40,65 @@ drawAnnotations = (userUri, roleUri)->
         title: 'User clisks in widget by date'
         subtitle: 'based on cliks by minute'
       height: 400
+      pointSize: 30
       axes: y:
         'Cicks': label: 'in each widget'
       chartArea:
         width: "80%"
         height: "80%"
+      vAxis:
+        minValue:0
+        format:'##h'
     hourData.addRows finalData
-
     hchart = new google.charts.Scatter(document.getElementById('scatter_dual_y'))
-    hchart.draw hourData, hourOptions
+    selectHandler = (e) ->
+      unless _.isEmpty hchart.getSelection()
+        selectedDate = moment(hourData.Lf[hchart.getSelection()[0].row].c[0].v)
+        finalData = []
+        _.each data, (item) ->
+          if moment(item.createdAt).format("L") is selectedDate.format("L")
+            finalData.push {
+              date: item.createdAt
+              widget: item.widget
+            }
+        _.sortBy finalData, (n) ->
+          moment(n.date)
 
+        finalOrderedData = []
+        previousWidget = finalData[0].widget
+        acc = 0
+        accStart= 1000
+        accEnd= 1000
+        _.each finalData, (item, key) ->
+          accEnd += 1000
+          if item.widget != previousWidget or key+1 is finalData.length
+            finalOrderedData.push [previousWidget, accStart, accEnd]
+            accStart = accEnd
+          previousWidget = item.widget
+
+        container = document.getElementById('timeline')
+        timlelineChart = new google.visualization.Timeline container
+        timeLineData = new google.visualization.DataTable
+        timeLineData.addColumn
+          type: 'string'
+          id: 'Widget'
+        timeLineData.addColumn
+          type: 'number'
+          id: 'Start'
+        timeLineData.addColumn
+          type: 'number'
+          id: 'End'
+        timeLineData.addRows finalOrderedData
+        timlelineChart.draw timeLineData
+
+    google.visualization.events.addListener hchart, 'select', selectHandler
+    unless _.isEmpty data
+      hchart.draw hourData, hourOptions
+
+
+  # ==================================================
+  # Bar Charts
+  # ==================================================
   $.get "/api/phases/#{userUri}/#{roleUri}", (data) ->
     widgetData = []
     phaseData = []
@@ -122,5 +170,5 @@ drawAnnotations = (userUri, roleUri)->
       wchart.draw wdata, options
 
 google.load 'visualization', '1',
-  packages: [ 'corechart', 'bar', 'scatter' ]
+  packages: [ 'corechart', 'bar', 'scatter', 'timeline' ]
   callback: drawAnnotations
