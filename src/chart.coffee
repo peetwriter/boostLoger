@@ -8,7 +8,7 @@ drawAnnotations = (userUri, roleUri)->
       date: item.date
     groupedData = _.groupBy secondData, (item) -> item.date
     hourData = new google.visualization.DataTable
-    hourData.addColumn 'date', 'date'
+    hourData.addColumn 'date', 'Time'
     hourData.addColumn 'number', 'Welcome'
     hourData.addColumn 'number', 'Access'
     hourData.addColumn 'number', 'Employee'
@@ -19,7 +19,7 @@ drawAnnotations = (userUri, roleUri)->
     finalData = []
     _.each groupedData, (groupedItem, key) ->
       _.each groupedItem, (item) ->
-        retArray = [moment(key).toDate(), 0, 0, 0, 0, 0, 0, 0]
+        retArray = [moment(key).toDate(), undefined, undefined, undefined, undefined, undefined, undefined, undefined]
         if item.widget == "Welcome"
           retArray[1] = item.time
         if item.widget == "Access"
@@ -38,7 +38,7 @@ drawAnnotations = (userUri, roleUri)->
     hourOptions =
       chart:
         title: 'User clisks in widget by date'
-        subtitle: 'based on cliks by minute'
+        subtitle: 'based on cliks by second'
       height: 400
       pointSize: 30
       axes: y:
@@ -46,14 +46,20 @@ drawAnnotations = (userUri, roleUri)->
       chartArea:
         width: "80%"
         height: "80%"
-      vAxis:
+      hAxis:
         minValue:0
-        format:'##h'
     hourData.addRows finalData
     hchart = new google.charts.Scatter(document.getElementById('scatter_dual_y'))
+
     selectHandler = (e) ->
+      console.log "here"
+      console.log hchart.getSelection()
       unless _.isEmpty hchart.getSelection()
-        selectedDate = moment(hourData.Lf[hchart.getSelection()[0].row].c[0].v)
+        console.log "here1"
+        console.log hourData
+        console.log hourData.Gf[hchart.getSelection()[0].row].c[0].v
+        selectedDate = moment(hourData.Gf[hchart.getSelection()[0].row].c[0].v)
+        console.log selectedDate
         finalData = []
         _.each data, (item) ->
           if moment(item.createdAt).format("L") is selectedDate.format("L")

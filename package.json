@@ -29,6 +29,7 @@
     "gulp-nodemon": "^1.0.4",
     "gulp-watch": "^4.2.4",
     "jade": "*",
+    "lodash": "^3.10.0",
     "mongoose": "^3.8.21",
     "mysql": "^2.6.2",
     "path": "^0.11.14",

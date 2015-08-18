@@ -10,8 +10,11 @@ body {
     padding: 0 0 0 300px;
   }
 }
+.page_dashboard #timeline {
+  margin-top: 77px;
+}
 .page_dashboard .navmenu {
-  background-color: #E1E4FF;
+  background-color: #E4E5E6;
   padding-top: 50px;
 }
 .page_dashboard .navmenu .dropdown-toggle .main-item {
